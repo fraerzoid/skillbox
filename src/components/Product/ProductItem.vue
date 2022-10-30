@@ -11,48 +11,18 @@
     </h3>
     <span class="catalog__price"> {{productItemData.price}} ₽ </span>
     <ul class="colors colors--black">
-        <li class="colors__item">
+        <li class="colors__item"
+            v-for="(colorId, idx) in productItemData.colors" :key="idx"
+        >
             <label class="colors__label">
                 <input
                     class="colors__radio sr-only"
                     type="radio"
-                    name="color-1"
-                    value="#73B6EA"
-                    checked=""
+                    :value="colorId"
                 />
                 <span
                     class="colors__value"
-                    style="background-color: #73b6ea"
-                >
-                </span>
-            </label>
-        </li>
-        <li class="colors__item">
-            <label class="colors__label">
-                <input
-                    class="colors__radio sr-only"
-                    type="radio"
-                    name="color-1"
-                    value="#8BE000"
-                />
-                <span
-                    class="colors__value"
-                    style="background-color: #8be000"
-                >
-                </span>
-            </label>
-        </li>
-        <li class="colors__item">
-            <label class="colors__label">
-                <input
-                    class="colors__radio sr-only"
-                    type="radio"
-                    name="color-1"
-                    value="#222"
-                />
-                <span
-                    class="colors__value"
-                    style="background-color: #222"
+                    :style="{'background-color': getColorValue(colorId)}"
                 >
                 </span>
             </label>
@@ -63,9 +33,25 @@
 
 <script>
 
+import colors from '../../data/colors';
+
 export default {
   props: [
     'productItemData',
   ],
+  computed: {
+    colors() {
+      return colors;
+    },
+  },
+  methods: {
+    getColorValue(colorId) {
+      const colorItem = this.colors.filter((item) => item.id === colorId);
+      if (colorItem.length === 1) {
+        return colorItem[0].value;
+      }
+      return 'red';
+    },
+  },
 };
 </script>

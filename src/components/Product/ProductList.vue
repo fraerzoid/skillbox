@@ -1,8 +1,8 @@
 <template>
     <ul class="catalog__list">
-        <li class="catalog__item" v-for="(item, idx) in products" :key="idx">
-            <ProductItem :productItemData="item"></ProductItem>
-        </li>
+      <ProductItem
+        v-for="item in products" :key="item.key" :productItemData="item">
+      </ProductItem>
     </ul>
 </template>
 
