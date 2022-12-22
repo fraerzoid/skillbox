@@ -1,6 +1,10 @@
 <template>
   <div>
-    <a class="catalog__pic" href="#">
+    <a
+      class="catalog__pic"
+      href="#"
+      @click.prevent="$emit('gotoPage', 'product', {key: productItemData.key})"
+    >
       <img
         :src="productItemData.image"
         :alt="productItemData.title"

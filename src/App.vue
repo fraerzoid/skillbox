@@ -1,76 +1,42 @@
 <template>
-    <main class="content container">
-        <div class="content__top content__top--catalog">
-            <h1 class="content__title">Каталог</h1>
-            <span class="content__info"> 152 товара </span>
-        </div>
-
-        <div class="content__catalog">
-            <ProductFilter
-              :price-from.sync="filterPriceFrom"
-              :price-to.sync="filterPriceTo"
-              :category-id.sync="filterCategoryId"
-              :color-id.sync="filterColorId"
-            ></ProductFilter>
-            <section class="catalog">
-                <ProductList :products="products"></ProductList>
-                <BasePagination
-                  v-model="page"
-                  :per-page="prouctsPerPage"
-                  :count="productsCount"
-                ></BasePagination>
-            </section>
-        </div>
-    </main>
+  <component
+    :is="currentPageComponent"
+    :page-params="this.currentPageParams"
+    @gotoPage="(pageName, pageParams) => gotoPage(pageName, pageParams)"
+  />
 </template>
 
 <script>
-import products from './data/products';
-import ProductList from './components/Product/ProductList.vue';
-import BasePagination from './components/Base/BasePagination.vue';
-import ProductFilter from './components/Product/ProductFilter.vue';
+import MainPage from '@/pages/MainPage.vue';
+import ProductPage from '@/pages/ProductPage.vue';
+import NotFoundPage from '@/pages/NotFoundPage.vue';
+
+const routes = {
+  main: 'MainPage',
+  product: 'ProductPage',
+};
 
 export default {
-  name: 'App',
-  components: {
-    ProductList,
-    BasePagination,
-    ProductFilter,
-  },
   data() {
     return {
-      filterPriceFrom: 0,
-      filterPriceTo: 0,
-      filterCategoryId: 0,
-      filterColorId: 0,
-      //
-      page: 1,
-      prouctsPerPage: 3,
+      currentPage: 'main',
+      currentPageParams: {},
     };
   },
+  components: {
+    MainPage,
+    ProductPage,
+    NotFoundPage,
+  },
+  methods: {
+    gotoPage(pageName, pageParams) {
+      this.currentPage = pageName;
+      this.currentPageParams = pageParams || {};
+    },
+  },
   computed: {
-    filtredProducts() {
-      let result = products;
-      if (this.filterPriceFrom > 0) {
-        result = result.filter((item) => item.price >= this.filterPriceFrom);
-      }
-      if (this.filterPriceTo > 0) {
-        result = result.filter((item) => item.price <= this.filterPriceTo);
-      }
-      if (this.filterCategoryId) {
-        result = result.filter((item) => item.categoryId === this.filterCategoryId);
-      }
-      if (this.filterColorId > 0) {
-        result = result.filter((item) => item.colors.includes(this.filterColorId));
-      }
-      return result;
-    },
-    products() {
-      const offset = (this.page - 1) * this.prouctsPerPage;
-      return this.filtredProducts.slice(offset, offset + this.prouctsPerPage);
-    },
-    productsCount() {
-      return this.filtredProducts.length;
+    currentPageComponent() {
+      return routes[this.currentPage] || 'NotFoundPage';
     },
   },
 };
