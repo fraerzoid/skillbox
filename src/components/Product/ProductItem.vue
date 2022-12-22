@@ -3,7 +3,7 @@
     <a
       class="catalog__pic"
       href="#"
-      @click.prevent="$emit('gotoPage', 'product', {key: productItemData.key})"
+      @click.prevent="gotoPage('product', {key: productItemData.key})"
     >
       <img
         :src="productItemData.image"
@@ -37,6 +37,7 @@
 
 <script>
 
+import eventBus from '@/eventBus';
 import colors from '../../data/colors';
 
 export default {
@@ -55,6 +56,9 @@ export default {
         return colorItem[0].value;
       }
       return 'red';
+    },
+    gotoPage(pageName, pageParams) {
+      eventBus.$emit('gotoPage', pageName, pageParams);
     },
   },
 };
