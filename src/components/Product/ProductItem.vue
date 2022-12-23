@@ -13,52 +13,29 @@
     <h3 class="catalog__title">
         <a href="#"> {{productItemData.title}} </a>
     </h3>
-    <span class="catalog__price"> {{productItemData.price}} ₽ </span>
-    <ul class="colors colors--black">
-        <li class="colors__item"
-            v-for="(colorId, idx) in productItemData.colors" :key="idx"
-        >
-            <label class="colors__label">
-                <input
-                    class="colors__radio sr-only"
-                    type="radio"
-                    :value="colorId"
-                />
-                <span
-                    class="colors__value"
-                    :style="{'background-color': getColorValue(colorId)}"
-                >
-                </span>
-            </label>
-        </li>
-    </ul>
+    <span class="catalog__price"> {{productItemData.price | numberFormat }} ₽ </span>
+    <ProductColors :colors="productItemData.colors"/>
   </div>
 </template>
 
 <script>
-
-import eventBus from '@/eventBus';
-import colors from '../../data/colors';
+import gotoPage from '@/helpers/gotoPage';
+import numberFormat from '@/helpers/numberFormat';
+import ProductColors from '@/components/Product/ProductColors.vue';
 
 export default {
+  components: {
+    ProductColors,
+  },
   props: [
     'productItemData',
   ],
-  computed: {
-    colors() {
-      return colors;
-    },
+  filters: {
+    numberFormat,
   },
   methods: {
-    getColorValue(colorId) {
-      const colorItem = this.colors.filter((item) => item.id === colorId);
-      if (colorItem.length === 1) {
-        return colorItem[0].value;
-      }
-      return 'red';
-    },
     gotoPage(pageName, pageParams) {
-      eventBus.$emit('gotoPage', pageName, pageParams);
+      gotoPage(pageName, pageParams);
     },
   },
 };
