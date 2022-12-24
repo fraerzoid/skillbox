@@ -4,26 +4,24 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a
+          <router-link
             class="breadcrumbs__link"
-            href="index.html"
-            @click.prevent="gotoPage('main')"
+            :to="{name:'main'}"
           >
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a
+          <router-link
             class="breadcrumbs__link"
-            href="#"
-            @click.prevent="gotoPage('main')"
+            :to="{name:'main'}"
           >
-            {{category.title}}
-          </a>
+            {{category?.title}}
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
-            {{product.title}}
+            {{product?.title}}
           </a>
         </li>
       </ul>
@@ -32,22 +30,22 @@
     <section class="item">
       <div class="item__pics pics">
         <div class="pics__wrapper">
-          <img width="570" height="570" :src="product.image" :alt="product.title">
+          <img width="570" height="570" :src="product?.image" :alt="product?.title">
         </div>
       </div>
 
       <div class="item__info">
-        <span class="item__code">Артикул: {{product.key}}</span>
+        <span class="item__code">Артикул: {{product?.key}}</span>
         <h2 class="item__title">
-          {{product.title}}
+          {{product?.title}}
         </h2>
         <div class="item__form">
           <form class="form" action="#" method="POST">
             <b class="item__price">
-              {{product.price | numberFormat}} ₽
+              {{product?.price | numberFormat}} ₽
             </b>
 
-            <ProductColors :colors="product.colors"/>
+            <ProductColors :colors="product?.colors"/>
 
             <fieldset class="form__block">
               <legend class="form__legend">Объемб в ГБ:</legend>
@@ -171,7 +169,6 @@
 <script>
 import products from '@/data/products';
 import categories from '@/data/categories';
-import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import ProductColors from '@/components/Product/ProductColors.vue';
 
@@ -180,21 +177,15 @@ export default {
   components: {
     ProductColors,
   },
-  props: ['pageParams'],
   filters: {
     numberFormat,
   },
   computed: {
     product() {
-      return products.find((product) => product.key === this.pageParams.key);
+      return products.find((product) => product.key === +this.$route.params.key);
     },
     category() {
       return categories.find((category) => category.id === this.product?.categoryId);
-    },
-  },
-  methods: {
-    gotoPage(pageName, pageParams) {
-      gotoPage(pageName, pageParams);
     },
   },
 };

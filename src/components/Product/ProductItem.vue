@@ -1,25 +1,23 @@
 <template>
   <div>
-    <a
+    <router-link
       class="catalog__pic"
-      href="#"
-      @click.prevent="gotoPage('product', {key: productItemData.key})"
+      :to="{name:'product', params:{key:product.key}}"
     >
       <img
-        :src="productItemData.image"
-        :alt="productItemData.title"
+        :src="product.image"
+        :alt="product.title"
       />
-    </a>
+    </router-link>
     <h3 class="catalog__title">
-        <a href="#"> {{productItemData.title}} </a>
+        <a href="#"> {{product.title}} </a>
     </h3>
-    <span class="catalog__price"> {{productItemData.price | numberFormat }} ₽ </span>
-    <ProductColors :colors="productItemData.colors"/>
+    <span class="catalog__price"> {{product.price | numberFormat }} ₽ </span>
+    <ProductColors :colors="product.colors"/>
   </div>
 </template>
 
 <script>
-import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import ProductColors from '@/components/Product/ProductColors.vue';
 
@@ -28,15 +26,10 @@ export default {
     ProductColors,
   },
   props: [
-    'productItemData',
+    'product',
   ],
   filters: {
     numberFormat,
-  },
-  methods: {
-    gotoPage(pageName, pageParams) {
-      gotoPage(pageName, pageParams);
-    },
   },
 };
 </script>

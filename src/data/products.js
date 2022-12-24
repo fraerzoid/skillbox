@@ -1,6 +1,6 @@
 export default [
   {
-    key: '047c4f78-3233-4dc6-8a24-d3ffcda8fe51',
+    key: 1,
     categoryId: 6,
     title: 'Планшет HUAWEI MatePad C5e, 4 ГБ/64 ГБ, Wi-Fi + Cellular, темно-синий',
     price: 14890,
@@ -10,7 +10,7 @@ export default [
     ],
   },
   {
-    key: 'b0c0f304-97ba-41fd-83c9-a09bb34f080f',
+    key: 2,
     categoryId: 6,
     title: 'Планшет Apple iPad 2021, 256 ГБ, Wi-Fi, серый космос',
     price: 34770,
@@ -20,7 +20,7 @@ export default [
     ],
   },
   {
-    key: 'e5c9073d-34fd-41eb-955a-aa9cf2e3438b',
+    key: 3,
     categoryId: 6,
     title: 'Планшет Xiaomi Pad 5, RU, 6 ГБ/128 ГБ, Wi-Fi, жемчужный белый',
     price: 34310,
@@ -30,7 +30,7 @@ export default [
     ],
   },
   {
-    key: '6ffcc4c2-9817-4a1e-a253-d78421753f01',
+    key: 4,
     categoryId: 6,
     title: 'Планшет HUAWEI MatePad T 10s (2020), 4 ГБ/64 ГБ, Wi-Fi + Cellular, насыщенный синий',
     price: 15990,
@@ -40,7 +40,7 @@ export default [
     ],
   },
   {
-    key: '5fa7d4f2-cfe2-4753-988a-2cc0498775c5',
+    key: 5,
     categoryId: 6,
     title: 'Планшет HUAWEI MatePad 10.4 2022 (2022), 4 ГБ/64 ГБ, Wi-Fi, серый матовый',
     price: 18990,
@@ -50,7 +50,7 @@ export default [
     ],
   },
   {
-    key: '46251c45-2b5f-4626-bf78-36fab7e54f48',
+    key: 6,
     categoryId: 6,
     title: 'Планшет Samsung Galaxy Tab A7 10.4 SM-T505 (2020), RU, 3 ГБ/32 ГБ, Wi-Fi + Cellular, темно-серый',
     price: 19999,
@@ -60,7 +60,7 @@ export default [
     ],
   },
   {
-    key: 'dd438e42-f4a1-4935-a0b3-2ea03b5470c0',
+    key: 7,
     categoryId: 4,
     title: 'Радионяня Motorola MBP16',
     price: 360,
@@ -70,7 +70,7 @@ export default [
     ],
   },
   {
-    key: 'f777c3ce-47e6-479d-9cf0-a933973c2dbc',
+    key: 8,
     categoryId: 1,
     title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
     price: 5660,
@@ -80,7 +80,7 @@ export default [
     ],
   },
   {
-    key: '08403b61-9bd1-4a86-ba82-91b1e7de5192',
+    key: 9,
     categoryId: 2,
     title: 'Смартфон Xiaomi Mi Mix 3 6/128GB',
     price: 21790,
@@ -90,7 +90,7 @@ export default [
     ],
   },
   {
-    key: '86ca065c-7939-4b16-9e3c-c849d2c1ef48',
+    key: 10,
     categoryId: 3,
     title: 'Электроскейт Razor Cruiser',
     price: 24690,
@@ -100,7 +100,7 @@ export default [
     ],
   },
   {
-    key: '49dd8ef5-ca22-4bdb-b8ce-b5a7ab82f50d',
+    key: 11,
     categoryId: 2,
     title: 'Смартфон Xiaomi Mi A3 4/64GB Android One',
     price: 14960,
@@ -110,7 +110,7 @@ export default [
     ],
   },
   {
-    key: '6c0d908b-7b5a-46fc-a887-75d60dec8f72',
+    key: 12,
     categoryId: 2,
     title: 'Смартфон Xiaomi Redmi 6/128GB',
     price: 8960,
@@ -120,7 +120,7 @@ export default [
     ],
   },
   {
-    key: 'f6398cf6-c876-456a-92a3-551d531ef826',
+    key: 13,
     categoryId: 3,
     title: 'Электрический дрифт-карт Razor Crazy Cart',
     price: 39900,
@@ -130,7 +130,7 @@ export default [
     ],
   },
   {
-    key: 'a5a2bcf2-5beb-4c3d-8e6d-e3042a3da6b8',
+    key: 14,
     categoryId: 3,
     title: 'Гироскутер Razor Hovertrax 2.0',
     price: 34900,
@@ -140,7 +140,7 @@ export default [
     ],
   },
   {
-    key: 'b717e4b1-7efd-401a-a130-9047bdc7925a',
+    key: 15,
     categoryId: 3,
     title: 'Детский трюковой самокат Razor Grom',
     price: 4990,
@@ -150,7 +150,7 @@ export default [
     ],
   },
   {
-    key: '938731b7-5a2e-4610-994b-a05899a13f2d',
+    key: 16,
     categoryId: 3,
     title: 'Роллерсёрф Razor RipStik Air Pro',
     price: 6690,
@@ -160,7 +160,7 @@ export default [
     ],
   },
   {
-    key: '795f6d59-22fc-46c1-a0bb-25d48b6e7f1b',
+    key: 17,
     categoryId: 5,
     title: 'Наушники AirPods с беспроводным зарядным футляром',
     price: 16560,
@@ -170,7 +170,7 @@ export default [
     ],
   },
   {
-    key: 'd551da17-f620-4e01-8298-4ff30c2ea1c0',
+    key: 18,
     categoryId: 5,
     title: 'Наушники Sony',
     price: 30690,
