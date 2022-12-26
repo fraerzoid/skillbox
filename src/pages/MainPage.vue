@@ -48,7 +48,7 @@ export default {
       filterColorId: 0,
       //
       page: 1,
-      prouctsPerPage: 3,
+      prouctsPerPage: 6,
     };
   },
   computed: {

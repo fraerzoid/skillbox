@@ -40,7 +40,7 @@
           {{product?.title}}
         </h2>
         <div class="item__form">
-          <form class="form" action="#" method="POST">
+          <form class="form" action="#" method="POST" @submit.prevent="addToCart()">
             <b class="item__price">
               {{product?.price | numberFormat}} ₽
             </b>
@@ -80,15 +80,15 @@
 
             <div class="item__row">
               <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
+                <button type="button" aria-label="Убрать один товар" @click="decProductAmount">
                   <svg width="12" height="12" fill="currentColor">
                     <use xlink:href="#icon-minus"></use>
                   </svg>
                 </button>
 
-                <input type="text" value="1" name="count">
+                <input type="text" v-model.number="productAmout">
 
-                <button type="button" aria-label="Добавить один товар">
+                <button type="button" aria-label="Добавить один товар" @click="incProductAmount">
                   <svg width="12" height="12" fill="currentColor">
                     <use xlink:href="#icon-plus"></use>
                   </svg>
@@ -174,6 +174,11 @@ import ProductColors from '@/components/Product/ProductColors.vue';
 
 export default {
   name: 'ProductPage',
+  data() {
+    return {
+      productAmout: 1,
+    };
+  },
   components: {
     ProductColors,
   },
@@ -186,6 +191,20 @@ export default {
     },
     category() {
       return categories.find((category) => category.id === this.product?.categoryId);
+    },
+  },
+  methods: {
+    addToCart() {
+      this.$store.commit(
+        'addProductToCart',
+        { productId: this.product.key, amount: this.productAmout },
+      );
+    },
+    incProductAmount() {
+      this.productAmout += 1;
+    },
+    decProductAmount() {
+      this.productAmout -= 1;
     },
   },
 };
