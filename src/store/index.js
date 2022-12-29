@@ -9,6 +9,7 @@ export default new Vuex.Store({
     cartProducts: [
       { productId: 1, amount: 2 },
     ],
+    colors: null,
   },
   mutations: {
     addProductToCart(state, { productId, amount }) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     deleteCartProduct(state, productId) {
       state.cartProducts = state.cartProducts.filter((item) => item.productId !== productId);
     },
+    setColors(state, data) {
+      state.colors = data;
+    },
   },
   getters: {
     cartDetailProucts(state) {
@@ -44,6 +48,9 @@ export default new Vuex.Store({
         (acc, item) => (item.product.price * item.amount) + acc,
         0,
       );
+    },
+    colors(state) {
+      return state.colors;
     },
   },
 });

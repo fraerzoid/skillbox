@@ -35,7 +35,7 @@
       </div>
 
       <div class="item__info">
-        <span class="item__code">Артикул: {{product?.key}}</span>
+        <span class="item__code">Артикул: {{product?.id}}</span>
         <h2 class="item__title">
           {{product?.title}}
         </h2>
@@ -187,7 +187,7 @@ export default {
   },
   computed: {
     product() {
-      return products.find((product) => product.key === +this.$route.params.key);
+      return products.find((product) => product.id === +this.$route.params.id);
     },
     category() {
       return categories.find((category) => category.id === this.product?.categoryId);
@@ -197,7 +197,7 @@ export default {
     addToCart() {
       this.$store.commit(
         'addProductToCart',
-        { productId: this.product.key, amount: this.productAmout },
+        { productId: this.product.id, amount: this.productAmout },
       );
     },
     incProductAmount() {

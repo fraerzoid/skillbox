@@ -2,7 +2,7 @@
   <div>
     <router-link
       class="catalog__pic"
-      :to="{name:'product', params:{key:product.key}}"
+      :to="{name:'product', params:{id:product.id}}"
     >
       <img
         :src="product.image"

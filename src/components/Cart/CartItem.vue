@@ -12,7 +12,7 @@
             {{item.product.title}}
         </h3>
         <span class="product__code">
-            Артикул: {{item.product.key}}
+            Артикул: {{item.product.id}}
         </span>
         <div class="product__counter form__counter">
             <button
