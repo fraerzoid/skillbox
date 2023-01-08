@@ -13,12 +13,7 @@
                 :color-id.sync="filterColorId"
             ></ProductFilter>
             <section class="catalog">
-                <div v-if="this.productsLoading">
-                    <span>
-                        Производится загрузка товаров
-                    </span>
-                    <BasePreloader></BasePreloader>
-                </div>
+                <BasePreloader v-if="this.productsLoading"></BasePreloader>
                 <div v-if="this.productsLoadingFailed">
                     <span>
                         Произошла ошибка при загрузке товаров
