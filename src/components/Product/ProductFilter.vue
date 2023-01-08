@@ -58,13 +58,13 @@
                             <input
                                 class="colors__radio sr-only"
                                 type="radio"
-                                :name="color.name"
+                                :name="color.title"
                                 :value="color.id"
                                 v-model.number="currentColorId"
                             />
                             <span
                                 class="colors__value"
-                                :style="{'background-color': color.value}"
+                                :style="{'background-color': color.code}"
                             >
                             </span>
                         </label>
@@ -181,8 +181,8 @@
 </template>
 
 <script>
-import categories from '../../data/categories';
-import colors from '../../data/colors';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 export default {
   data() {
@@ -191,6 +191,9 @@ export default {
       currentPriceTo: 0,
       currentCategoryId: 0,
       currentColorId: 0,
+      //
+      categoriesData: null,
+      colorsData: null,
     };
   },
   props: [
@@ -201,10 +204,10 @@ export default {
   ],
   computed: {
     categories() {
-      return categories;
+      return this.categoriesData ? this.categoriesData.items : [];
     },
     colors() {
-      return colors;
+      return this.colorsData ? this.colorsData.items : [];
     },
   },
   watch: {
@@ -216,6 +219,7 @@ export default {
     },
     categoryId(value) {
       this.currentCategoryId = value;
+      this.$emit('update:categoryId', this.currentCategoryId);
     },
     colorId(value) {
       this.currentColorId = value;
@@ -234,6 +238,20 @@ export default {
       this.$emit('update:categoryId', 0);
       this.$emit('update:colorId', 0);
     },
+    loadCategories() {
+      axios.get(`${API_BASE_URL}/api/productCategories`)
+        // eslint-disable-next-line no-return-assign
+        .then((response) => this.categoriesData = response.data);
+    },
+    loadColors() {
+      axios.get(`${API_BASE_URL}/api/colors`)
+        // eslint-disable-next-line no-return-assign
+        .then((response) => this.colorsData = response.data);
+    },
+  },
+  created() {
+    this.loadCategories();
+    this.loadColors();
   },
 };
 </script>
