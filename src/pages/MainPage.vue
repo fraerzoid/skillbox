@@ -13,6 +13,20 @@
                 :color-id.sync="filterColorId"
             ></ProductFilter>
             <section class="catalog">
+                <div v-if="this.productsLoading">
+                    <span>
+                        Производится загрузка товаров
+                    </span>
+                    <BasePreloader></BasePreloader>
+                </div>
+                <div v-if="this.productsLoadingFailed">
+                    <span>
+                        Произошла ошибка при загрузке товаров
+                    </span>
+                    <button @click.prevent="loadProducts()">
+                        Попробовать еще раз
+                    </button>
+                </div>
                 <ProductList
                     :products="products"
                 >
@@ -33,6 +47,7 @@ import BasePagination from '@/components/Base/BasePagination.vue';
 import ProductFilter from '@/components/Product/ProductFilter.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
+import BasePreloader from '@/components/Base/BasePreloader.vue';
 
 export default {
   name: 'MainPage',
@@ -40,6 +55,7 @@ export default {
     ProductList,
     BasePagination,
     ProductFilter,
+    BasePreloader,
   },
   data() {
     return {
@@ -51,6 +67,9 @@ export default {
       page: 1,
       prouctsPerPage: 3,
       productsData: null,
+      //
+      productsLoading: true,
+      productsLoadingFailed: false,
     };
   },
   computed: {
@@ -86,6 +105,8 @@ export default {
   },
   methods: {
     loadProducts() {
+      this.productsLoading = true;
+      this.productsLoadingFailed = false;
       clearTimeout(this.loadProductsTimer);
       this.loadProductsTimer = setTimeout(() => {
         axios.get(`${API_BASE_URL}/api/products`, {
@@ -99,8 +120,12 @@ export default {
           },
         })
           // eslint-disable-next-line no-return-assign
-          .then((response) => this.productsData = response.data);
-      }, 0);
+          .then((response) => this.productsData = response.data)
+          // eslint-disable-next-line no-return-assign
+          .catch(() => this.productsLoadingFailed = true)
+          // eslint-disable-next-line no-return-assign
+          .then(() => this.productsLoading = false);
+      }, 500);
     },
   },
   watch: {
