@@ -105,9 +105,19 @@
                     </button>
                   </div>
 
-                  <button class="button button--primery" type="submit">
+                  <button
+                    class="button button--primery"
+                    type="submit"
+                    :disabled="productAddSending"
+                  >
                     В корзину
                   </button>
+                </div>
+                <div v-show="productAdded">
+                  <span>"Товар добавлен в корзину"</span>
+                </div>
+                <div v-show="productAddSending">
+                  <span>"Добавляем товар в корзину..."</span>
                 </div>
               </form>
             </div>
@@ -183,6 +193,7 @@ import ProductColors from '@/components/Product/ProductColors.vue';
 import axios from 'axios';
 import API_BASE_URL from '@/config';
 import BasePreloader from '@/components/Base/BasePreloader.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ProductPage',
@@ -193,6 +204,9 @@ export default {
       productData: null,
       productLoading: true,
       productLoadingFailed: false,
+      //
+      productAdded: false,
+      productAddSending: false,
     };
   },
   components: {
@@ -211,11 +225,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['addProductToCart']),
     addToCart() {
-      this.$store.commit(
-        'addProductToCart',
+      this.productAdded = false;
+      this.productAddSending = true;
+      this.addProductToCart(
         { productId: this.product.id, amount: this.productAmout },
-      );
+      ).then(() => {
+        this.productAdded = true;
+        this.productAddSending = false;
+      });
     },
     incProductAmount() {
       this.productAmout += 1;
