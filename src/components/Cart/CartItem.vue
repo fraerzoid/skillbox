@@ -18,6 +18,8 @@
             <button
                 type="button"
                 aria-label="Убрать один товар"
+                @click.prevent="decrementProduct"
+                :disabled="this.amount === 0"
             >
                 <svg width="10" height="10" fill="currentColor">
                     <use xlink:href="#icon-minus"></use>
@@ -29,6 +31,7 @@
             <button
               type="button"
               aria-label="Добавить один товар"
+              @click.prevent="incrementProduct"
             >
                 <svg width="10" height="10" fill="currentColor">
                     <use xlink:href="#icon-plus"></use>
@@ -77,6 +80,12 @@ export default {
   },
   methods: {
     ...mapActions(['updateProductAmount', 'deleteProduct']),
+    incrementProduct() {
+      this.amount += 1;
+    },
+    decrementProduct() {
+      this.amount -= 1;
+    },
   },
 };
 </script>
