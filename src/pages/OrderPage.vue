@@ -28,7 +28,7 @@
     </div>
 
     <section class="cart">
-      <form class="cart__form form" action="#" method="POST">
+      <form class="cart__form form" action="#" method="POST" @submit.prevent="order()">
         <div class="cart__field">
           <div class="cart__data">
             <BaseFormText
@@ -60,10 +60,10 @@
             >
             </BaseFormText>
             <BaseFormTextArea
-              v-model="formData.comments"
+              v-model="formData.comment"
               title="Комментарий к заказу"
               placeholder="Ваши пожелания"
-              :error="formError.comments"
+              :error="formError.comment"
             >
             </BaseFormTextArea>
           </div>
@@ -141,10 +141,13 @@
             Оформить заказ
           </button>
         </div>
-        <div class="cart__error form__error-block">
+        <div
+          class="cart__error form__error-block"
+          v-if="formErrorMessage"
+        >
           <h4>Заявка не отправлена!</h4>
           <p>
-            Похоже произошла ошибка. Попробуйте отправить снова или перезагрузите страницу.
+            {{formErrorMessage}}
           </p>
         </div>
       </form>
@@ -156,8 +159,10 @@
 import BaseFormText from '@/components/Base/BaseFormText.vue';
 import BaseFormTextArea from '@/components/Base/BaseFormTextArea.vue';
 import OrderItem from '@/components/Order/OrderItem.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import numberFormat from '@/helpers/numberFormat';
+import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 export default {
   name: 'OrderPage',
@@ -173,6 +178,7 @@ export default {
     return {
       formData: {},
       formError: {},
+      formErrorMessage: '',
       deliveryCost: 500,
     };
   },
@@ -181,6 +187,28 @@ export default {
       products: 'cartDetailProducts',
       summary: 'cartTotalPrice',
     }),
+  },
+  methods: {
+    ...mapMutations(['resetCart']),
+    order() {
+      this.formError = {};
+      axios.post(`${API_BASE_URL}/api/orders`, {
+        ...this.formData,
+      },
+      {
+        parms: {
+          userAccessKey: this.$store.state.userAccessKey,
+        },
+      })
+        .then(() => {
+          this.resetCart();
+        })
+        .catch((error) => {
+          this.formError = error.response.data.error.request || {};
+          this.formErrorMessage = error.response.data.error.message
+          || error.response.data.error.query.userAccessKey;
+        });
+    },
   },
 };
 </script>>

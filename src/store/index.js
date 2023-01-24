@@ -15,6 +15,10 @@ export default new Vuex.Store({
     colors: null,
   },
   mutations: {
+    resetCart(state) {
+      state.cartProducts = [];
+      state.cartProductsData = null;
+    },
     updateCartProductAmount(state, { productId, amount }) {
       const productItem = state.cartProducts.find((item) => item.productId === productId);
       if (productItem) {
