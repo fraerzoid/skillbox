@@ -107,19 +107,18 @@ export default new Vuex.Store({
       if (amount < 1) {
         return new Promise((resolve) => setTimeout(resolve, 0));
       }
-      return (new Promise((resolve) => setTimeout(resolve, 2000)))
-        .then(() => axios.put(`${API_BASE_URL}/api/baskets/products`, {
-          productId,
-          quantity: amount,
-        }, {
-          params: {
-            userAccessKey: context.state.userAccessKey,
-          },
+      return axios.put(`${API_BASE_URL}/api/baskets/products`, {
+        productId,
+        quantity: amount,
+      }, {
+        params: {
+          userAccessKey: context.state.userAccessKey,
+        },
+      })
+        .then((response) => {
+          context.commit('setCartProductsData', response.data.items);
+          context.commit('syncCardProducts');
         })
-          .then((response) => {
-            context.commit('setCartProductsData', response.data.items);
-            context.commit('syncCardProducts');
-          }))
         .catch(() => (context.commit('syncCardProducts')));
     },
     deleteProduct(context, productId) {
